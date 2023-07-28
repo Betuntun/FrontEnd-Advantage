@@ -3,6 +3,7 @@ import { RefresherCustomEvent } from '@ionic/angular';
 import { MessageComponent } from '../message/message.component';
 
 import { DataService, Message } from '../services/data.service';
+import { LoginService } from '../services/login/login.service';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +11,19 @@ import { DataService, Message } from '../services/data.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  user_name:string = "";
   private data = inject(DataService);
-  constructor() {}
+  constructor( private loginService: LoginService ) {}
+
+  ngOnInit() : void {
+    this.loginService.user().subscribe(user => {
+      console.log(user);
+      if(user.success){
+        console.log("aaaaaa");
+        this.user_name = user.user.name;
+      }
+    })
+  }
 
   refresh(ev: any) {
     setTimeout(() => {
