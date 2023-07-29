@@ -29,8 +29,6 @@ export class ChangepasswordComponent  implements OnInit {
         this.loginService.sendEmail(form.value.email).subscribe(data=>{
           this.router.navigate(["auth/reset"]);
         });
-      }else{
-        console.log( "Complete todos los campos");
       }
     }
 

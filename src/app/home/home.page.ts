@@ -19,9 +19,7 @@ export class HomePage {
 
   ngOnInit() : void {
     this.loginService.user().subscribe(user => {
-      console.log(user);
       if(user.success){
-        console.log("aaaaaa");
         this.user_name = user.user.name;
       }
     })
@@ -36,11 +34,11 @@ export class HomePage {
   getMessages(): Message[] {
     return this.data.getMessages();
   }
-  
+
   logOut()
   {
     this.cookieService.delete('token');
     this.router.navigate(['auth/login']);
   }
-  
+
 }
