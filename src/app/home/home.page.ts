@@ -4,6 +4,8 @@ import { MessageComponent } from '../message/message.component';
 
 import { DataService, Message } from '../services/data.service';
 import { LoginService } from '../services/login/login.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,7 @@ import { LoginService } from '../services/login/login.service';
 export class HomePage {
   user_name:string = "";
   private data = inject(DataService);
-  constructor( private loginService: LoginService ) {}
+  constructor( private loginService: LoginService,   private cookieService:CookieService, private router: Router) {}
 
   ngOnInit() : void {
     this.loginService.user().subscribe(user => {
@@ -34,4 +36,11 @@ export class HomePage {
   getMessages(): Message[] {
     return this.data.getMessages();
   }
+  
+  logOut()
+  {
+    this.cookieService.delete('token');
+    this.router.navigate(['auth/login']);
+  }
+  
 }

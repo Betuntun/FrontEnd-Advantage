@@ -5,29 +5,31 @@
 </ion-header>
 
 <ion-content>
-	<form [formGroup]="authForm" (submit)="onSubmit(authForm)" >
+	<form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm)" >
 		<div class="input-group">
 			<ion-item>
-				<ion-input type="email" name="email" id="email" placeholder="Email" formControlName="email"></ion-input>
+				<ion-input type="email"  placeholder="Email" formControlName="email"></ion-input>
 			</ion-item>
-			<div  class="errors">
-				<span >Email is required</span>
-				<span >Email is invalid</span>
+			<div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
+				<span >Ingresa un email valido</span>
 			</div>
 			<ion-item>
-				<ion-input type="password" name="password" id="password" placeholder="Password" formControlName="password"></ion-input>
+				<ion-input type="password" name="password" id="password" placeholder="Contraseña" formControlName="password"></ion-input>
 			</ion-item>
-			<div  class="errors">
-				<span >Password is required</span>
-				<span >Password needs to be 6 characters</span>
+			<div  class="errors" *ngIf="(password.dirty || password.touched) && password.errors">
+				<span >Ingresa una contraseña valida</span>
 			</div>
 		</div>
 
+
+
 		<ion-button type="submit" expand="block">Log in</ion-button>
-		<ion-button type="button" expand="block" color="light" fill="clear">
-      No recuerdas tu password(Clik aqui)
+		<ion-button type="button" expand="block" color="light" fill="clear" (click)="changePass()">
+      		¿No recuerdas tu contraseña?
 		</ion-button>
-
-
 	</form>
+
+	<div  *ngIf="error" class="errors">
+		<span >{{error}}</span>
+	</div>
 </ion-content>

@@ -1,0 +1,50 @@
+
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-title>Advantage Alberto App</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm)" >
+		<div class="input-group">
+			<ion-item>
+				<ion-input type="text"  placeholder="Token" formControlName="token"></ion-input>
+			</ion-item>
+			<div  *ngIf="(token.dirty || token.touched) && token.errors" class="errors">
+				<span >El token es requerido</span>
+			</div>
+			<ion-item>
+				<ion-input type="password" name="password" id="password" placeholder="Contraseña" formControlName="password"></ion-input>
+			</ion-item>
+			<div  class="errors"  *ngIf="(password.dirty || password.touched) && password.errors">
+				<span >Ingresa una contraseña valida</span>
+			</div>
+      <ion-item>
+				<ion-input type="password" name="password_confirm" id="password_confirm" placeholder="Confirmar contraseña" formControlName="password_confirm" (change)="onPasswordChange()"></ion-input>
+			</ion-item>
+
+
+      <div  class="errors" *ngIf="password_confirm.hasError('mismatch')">
+        <span >Las contraseñas no coinciden.</span>
+
+			</div>
+
+		</div>
+
+
+
+		<ion-button  *ngIf="!element" type="submit" expand="block">Cambiar contraseña</ion-button>
+
+    <ion-button *ngIf="element" type="submit" expand="block" (click)="returnLogin()">Regresar</ion-button>
+
+	</form>
+
+	<div  *ngIf="error" class="errors">
+		<span >{{error}}</span>
+	</div>
+
+  <div  *ngIf="success" class="success">
+		<span >{{success}}</span>
+	</div>
+</ion-content>

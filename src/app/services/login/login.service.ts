@@ -17,4 +17,13 @@ export class LoginService {
   public user():Observable<any>{
     return this.http.post(environment.url+'/user',{});
   }
+
+  public sendEmail(email:string):Observable<any>{
+    return this.http.post(environment.url+'/forgot', {email});
+  }
+
+  public reset(token:string, password:string, password_confirm:string):Observable<any>{
+    return this.http.post(environment.url+'/reset', {token,password,password_confirm});
+  }
+
 }
